@@ -1,0 +1,23 @@
+{
+    "name": "miny/access_control",
+    "description": "Access Control package of the Miny Framework.",
+    "minimum-stability": "dev",
+    "license": "MIT",
+    "type": "library",
+    "require": {
+        "php": ">=5.3.3",
+        "miny/framework": "dev-master",
+        "miny/annotation": "dev-master"
+    },
+    "authors": [
+        {
+            "name": "Dániel Buga",
+            "email": "bugadani@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Modules\\AccessControl\\": "src/"
+        }
+    }
+}

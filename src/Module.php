@@ -43,8 +43,8 @@ class Module extends \Miny\Modules\Module
 
     public function eventHandlers()
     {
-        $factory        = $this->application->getFactory();
-        $access_control = $factory->get('access_control');
+        $factory        = $this->application->getContainer();
+        $access_control = $factory->get(__NAMESPACE__ . '\\AccessControl');
 
         return array(
             'onControllerLoaded' => array($access_control),

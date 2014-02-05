@@ -74,10 +74,13 @@ class AccessControl
 
     private function checkAuthorized(array $roles)
     {
-        $container = $this->user->getRoleContainer();
         if (empty($roles)) {
             return true;
         }
+        if(!isset($this->user)) {
+            return false;
+        }
+        $container = $this->user->getRoleContainer();
         foreach ($roles as $role) {
             if ($container->has($role)) {
                 return true;

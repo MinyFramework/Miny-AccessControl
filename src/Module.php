@@ -10,6 +10,7 @@
 namespace Modules\AccessControl;
 
 use Miny\Application\BaseApplication;
+use Miny\Utils\ArrayUtils;
 
 class Module extends \Miny\Modules\Module
 {
@@ -37,6 +38,21 @@ class Module extends \Miny\Modules\Module
                 $parameterContainer
             ) {
                 $roles->addRoles($parameterContainer['access_control']['roles']);
+            }
+        );
+
+        $container->addCallback(
+            '\\Modules\\AccessControl\\RequestHandler',
+            function (RequestHandler $handler) use ($parameterContainer) {
+                if (isset($parameterContainer['access_control']['redirect_route'])) {
+                    $path   = $parameterContainer['access_control']['redirect_route'];
+                    $params = ArrayUtils::getByPath(
+                        $parameterContainer,
+                        array('access_control', 'redirect_parameters'),
+                        array()
+                    );
+                    $handler->setDefaultRedirection($path, $params);
+                }
             }
         );
     }

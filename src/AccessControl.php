@@ -28,35 +28,22 @@ class AccessControl
      */
     private $reader;
 
-    /**
-     * @param UserInterface $user
-     */
-    public function setUser(UserInterface $user)
+    public function __construct(RuleReader $reader, RequestHandler $requestHandler)
     {
-        $this->user = $user;
-    }
-
-    /**
-     * @param RequestHandler $requestHandler
-     */
-    public function setRequestHandler(RequestHandler $requestHandler)
-    {
+        $this->reader         = $reader;
         $this->requestHandler = $requestHandler;
     }
 
-    /**
-     * @param \Modules\AccessControl\RuleReader $reader
-     */
-    public function setReader(RuleReader $reader)
+    public function setUser(UserInterface $user)
     {
-        $this->reader = $reader;
+        $this->user = $user;
     }
 
     public function onControllerLoaded($controller, $action)
     {
         if (!$this->isAuthorized($controller, $action)) {
             // unauthorized
-            return $this->requestHandler->createRequest($this->reader->getLastComment());
+            return $this->requestHandler->create($this->reader->getLastComment());
         }
     }
 

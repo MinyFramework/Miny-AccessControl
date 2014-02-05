@@ -11,5 +11,8 @@ namespace Modules\AccessControl;
 
 interface UserInterface
 {
+    /**
+     * @return RoleContainer
+     */
     public function getRoleContainer();
 }

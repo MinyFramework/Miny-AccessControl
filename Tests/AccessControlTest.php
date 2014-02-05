@@ -2,6 +2,8 @@
 
 namespace Modules\AccessControl;
 
+use Modules\Annotation\Comment;
+
 class AccessControlTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -29,6 +31,7 @@ class AccessControlTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $this->readerMock = $this->getMockBuilder('\Modules\AccessControl\RuleReader')
+            ->setMethods(array('getLastComment', 'readController', 'readAction'))
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -36,7 +39,8 @@ class AccessControlTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $this->requestHandlerMock = $this->getMockBuilder('\Modules\AccessControl\RequestHandler')
-            ->setMethods(array('createRequest'))
+            ->disableOriginalConstructor()
+            ->setMethods(array('create'))
             ->getMock();
 
         $container = new RoleContainer();
@@ -45,10 +49,8 @@ class AccessControlTest extends \PHPUnit_Framework_TestCase
             ->method('getRoleContainer')
             ->will($this->returnValue($container));
 
-        $this->accessControl = new AccessControl();
-        $this->accessControl->setReader($this->readerMock);
+        $this->accessControl = new AccessControl($this->readerMock, $this->requestHandlerMock);
         $this->accessControl->setUser($this->userStub);
-        $this->accessControl->setRequestHandler($this->requestHandlerMock);
     }
 
     public function testThatNoRedirectionIsDoneIfNoRuleIsSet()
@@ -67,7 +69,7 @@ class AccessControlTest extends \PHPUnit_Framework_TestCase
 
         $this->requestHandlerMock
             ->expects($this->never())
-            ->method('createRequest');
+            ->method('create');
 
         $this->accessControl->onControllerLoaded($this->controllerStub, 'foo');
     }
@@ -88,7 +90,7 @@ class AccessControlTest extends \PHPUnit_Framework_TestCase
 
         $this->requestHandlerMock
             ->expects($this->never())
-            ->method('createRequest');
+            ->method('create');
 
         $this->accessControl->onControllerLoaded($this->controllerStub, 'foo');
     }
@@ -102,12 +104,17 @@ class AccessControlTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue(array('role_foo')));
 
         $this->readerMock
+            ->expects($this->once())
+            ->method('getLastComment')
+            ->will($this->returnValue(new Comment('description')));
+
+        $this->readerMock
             ->expects($this->never())
             ->method('readAction');
 
         $this->requestHandlerMock
             ->expects($this->once())
-            ->method('createRequest');
+            ->method('create');
 
         $this->accessControl->onControllerLoaded($this->controllerStub, 'foo');
     }
@@ -122,13 +129,18 @@ class AccessControlTest extends \PHPUnit_Framework_TestCase
 
         $this->readerMock
             ->expects($this->once())
+            ->method('getLastComment')
+            ->will($this->returnValue(new Comment('description')));
+
+        $this->readerMock
+            ->expects($this->once())
             ->method('readAction')
             ->with($this->controllerStub, 'foo')
             ->will($this->returnValue(array('role_foo')));
 
         $this->requestHandlerMock
             ->expects($this->once())
-            ->method('createRequest');
+            ->method('create');
 
         $this->accessControl->onControllerLoaded($this->controllerStub, 'foo');
     }

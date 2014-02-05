@@ -14,11 +14,11 @@ class RequestHandlerTest extends \PHPUnit_Framework_TestCase
     private $handler;
     private $factoryMock;
     private $dispatcherMock;
-    private $routeGeneratorMock;
+    private $routeMock;
 
     public function setUp()
     {
-        $this->factoryMock = $this->getMockBuilder('Miny\Factory\Factory')
+        $this->factoryMock = $this->getMockBuilder('Miny\Factory\Container')
             ->setMethods(array('get'))
             ->getMock();
 
@@ -26,16 +26,13 @@ class RequestHandlerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->routeGeneratorMock = $this->getMockBuilder('Miny\Routing\RouteGenerator')
+        $this->routeMock = $this->getMockBuilder('Miny\Routing\Router')
             ->disableOriginalConstructor()
             ->setMethods(array('generate'))
             ->getMock();
 
-        $this->handler = new RequestHandler();
+        $this->handler = new RequestHandler($this->dispatcherMock, $this->factoryMock, $this->routeMock);
         $this->handler->setDefaultRedirection('path', array('param1', 'param2'));
-        $this->handler->setFactory($this->factoryMock);
-        $this->handler->setDispatcher($this->dispatcherMock);
-        $this->handler->setRouteGenerator($this->routeGeneratorMock);
     }
 
     public function testThatAnUnauthorizedHeaderIsSet()
@@ -45,10 +42,10 @@ class RequestHandlerTest extends \PHPUnit_Framework_TestCase
         $this->factoryMock
             ->expects($this->once())
             ->method('get')
-            ->with('request')
+            ->with('\\Miny\\HTTP\\Request')
             ->will($this->returnValue($request));
 
-        $this->routeGeneratorMock
+        $this->routeMock
             ->expects($this->once())
             ->method('generate')
             ->with('path', array('param1', 'param2'))
@@ -71,10 +68,10 @@ class RequestHandlerTest extends \PHPUnit_Framework_TestCase
         $this->factoryMock
             ->expects($this->once())
             ->method('get')
-            ->with('request')
+            ->with('\\Miny\\HTTP\\Request')
             ->will($this->returnValue($request));
 
-        $this->routeGeneratorMock
+        $this->routeMock
             ->expects($this->once())
             ->method('generate')
             ->with('fooPath', array('fooParam'))
@@ -105,10 +102,10 @@ class RequestHandlerTest extends \PHPUnit_Framework_TestCase
         $this->factoryMock
             ->expects($this->once())
             ->method('get')
-            ->with('request')
+            ->with('\\Miny\\HTTP\\Request')
             ->will($this->returnValue($request));
 
-        $this->routeGeneratorMock
+        $this->routeMock
             ->expects($this->once())
             ->method('generate')
             ->will($this->returnArgument(0));

@@ -10,18 +10,20 @@
 namespace Modules\AccessControl;
 
 use Miny\Application\Dispatcher;
+use Miny\Factory\Container;
 use Miny\Factory\Factory;
 use Miny\HTTP\Response;
 use Miny\Routing\RouteGenerator;
+use Miny\Routing\Router;
 use Miny\Utils\ArrayUtils;
 use Modules\Annotation\Comment;
 
 class RequestHandler
 {
     /**
-     * @var Factory
+     * @var Container
      */
-    private $factory;
+    private $container;
 
     /**
      * @var RouteGenerator
@@ -35,28 +37,11 @@ class RequestHandler
     private $defaultRoute;
     private $defaultParams = array();
 
-    /**
-     * @param Dispatcher $dispatcher
-     */
-    public function setDispatcher(Dispatcher $dispatcher)
+    function __construct(Dispatcher $dispatcher, Container $factory, Router $routeGenerator)
     {
-        $this->dispatcher = $dispatcher;
-    }
-
-    /**
-     * @param RouteGenerator $routeGenerator
-     */
-    public function setRouteGenerator(RouteGenerator $routeGenerator)
-    {
+        $this->dispatcher     = $dispatcher;
+        $this->container        = $factory;
         $this->routeGenerator = $routeGenerator;
-    }
-
-    /**
-     * @param Factory $factory
-     */
-    public function setFactory(Factory $factory)
-    {
-        $this->factory = $factory;
     }
 
     public function setDefaultRedirection($path, array $params = array())
@@ -78,7 +63,7 @@ class RequestHandler
 
         $url = $this->routeGenerator->generate($routeName, $routeParameters);
 
-        $mainRequest = $this->factory->get('request');
+        $mainRequest = $this->container->get('\\Miny\\HTTP\\Request');
         if ($mainRequest->isSubRequest() && $url === $mainRequest->url) {
             throw new \UnexpectedValueException('This redirection leads to an infinite loop.');
         }

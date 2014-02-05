@@ -29,22 +29,21 @@ class Module extends \Miny\Modules\Module
 
     public function init(BaseApplication $app)
     {
-        $factory = $app->getFactory();
-
-        $factory->add('roles', '\Modules\AccessControl\RoleContainer')
-            ->addMethodCall('addRoles', '@access_control:roles');
-
-        $factory->add('access_control', '\Modules\AccessControl\AccessControl')
-            ->addMethodCall('setRoleContainer', '&roles')
-            ->addMethodCall('setAnnotation', '&annotation')
-            ->addMethodCall('setRouteGenerator', '&route_generator')
-            ->addMethodCall('setApplication', $app)
-            ->addMethodCall('setLog', '&log');
+        $container          = $app->getContainer();
+        $parameterContainer = $app->getParameterContainer();
+        $container->addCallback(
+            '\\Modules\\AccessControl\\RoleContainer',
+            function (RoleContainer $roles) use (
+                $parameterContainer
+            ) {
+                $roles->addRoles($parameterContainer['access_control']['roles']);
+            }
+        );
     }
 
     public function eventHandlers()
     {
-        $factory  = $this->application->getFactory();
+        $factory        = $this->application->getFactory();
         $access_control = $factory->get('access_control');
 
         return array(

@@ -1,0 +1,102 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+    ],
+    "hash": "8bbe8bbaa30dd21b5f8667ecd6cfb7a9",
+    "packages": [
+        {
+            "name": "miny/annotation",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/MinyFramework/Miny-Annotation.git",
+                "reference": "04d85065e3efbb4d8e2366ab1e7af9b62467d211"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/MinyFramework/Miny-Annotation/zipball/04d85065e3efbb4d8e2366ab1e7af9b62467d211",
+                "reference": "04d85065e3efbb4d8e2366ab1e7af9b62467d211",
+                "shasum": ""
+            },
+            "require": {
+                "miny/framework": "dev-master",
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Modules\\Annotation\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dániel Buga",
+                    "email": "bugadani@gmail.com"
+                }
+            ],
+            "description": "The Annotation package of the Miny Framework.",
+            "time": "2014-02-04 10:57:59"
+        },
+        {
+            "name": "miny/framework",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/MinyFramework/Miny-Core.git",
+                "reference": "a8a55fd4b738ff9939fe6e5dc9dc1b8aefad37ed"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/MinyFramework/Miny-Core/zipball/a8a55fd4b738ff9939fe6e5dc9dc1b8aefad37ed",
+                "reference": "a8a55fd4b738ff9939fe6e5dc9dc1b8aefad37ed",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Miny\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dániel Buga",
+                    "email": "bugadani@gmail.com"
+                }
+            ],
+            "description": "The Core package of the Miny Framework.",
+            "keywords": [
+                "framework"
+            ],
+            "time": "2014-02-05 16:14:10"
+        }
+    ],
+    "packages-dev": [
+
+    ],
+    "aliases": [
+
+    ],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "miny/framework": 20,
+        "miny/annotation": 20
+    },
+    "platform": {
+        "php": ">=5.3.3"
+    },
+    "platform-dev": [
+
+    ]
+}

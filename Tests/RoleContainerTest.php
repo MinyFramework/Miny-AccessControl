@@ -31,6 +31,8 @@ class RoleContainerTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->container->has('FooRole'));
     }
 
+
+
     public function testGetAll()
     {
         $this->assertCount(4, $this->container->getAll());
@@ -43,5 +45,12 @@ class RoleContainerTest extends \PHPUnit_Framework_TestCase
     public function testHasInvalidName()
     {
         $this->container->has(5);
+    }
+
+    public function testRemoveRole()
+    {
+        $this->assertTrue($this->container->has('StringRole'));
+        $this->container->remove('StringRole');
+        $this->assertFalse($this->container->has('StringRole'));
     }
 }

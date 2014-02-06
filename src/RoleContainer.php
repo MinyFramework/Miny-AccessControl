@@ -59,6 +59,23 @@ class RoleContainer
     }
 
     /**
+     * @param string|Role $role
+     *
+     * @return bool
+     * @throws \InvalidArgumentException
+     */
+    public function remove($role)
+    {
+        if ($role instanceof Role) {
+            $role = $role->getRole();
+        } elseif (!is_string($role)) {
+            throw new \InvalidArgumentException('$role must be an instance of Role or a string.');
+        }
+
+        unset($this->roles[$role]);
+    }
+
+    /**
      * @return Role[]
      */
     public function getAll()

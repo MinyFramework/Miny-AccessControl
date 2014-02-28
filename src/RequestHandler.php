@@ -11,12 +11,12 @@ namespace Modules\AccessControl;
 
 use Miny\Application\Dispatcher;
 use Miny\Factory\Container;
-use Miny\Factory\Factory;
 use Miny\HTTP\Response;
-use Miny\Routing\RouteGenerator;
-use Miny\Routing\Router;
+use Miny\Router\RouteGenerator;
+use Miny\Router\Router;
 use Miny\Utils\ArrayUtils;
 use Modules\Annotation\Comment;
+use UnexpectedValueException;
 
 class RequestHandler
 {
@@ -40,7 +40,7 @@ class RequestHandler
     function __construct(Dispatcher $dispatcher, Container $factory, Router $routeGenerator)
     {
         $this->dispatcher     = $dispatcher;
-        $this->container        = $factory;
+        $this->container      = $factory;
         $this->routeGenerator = $routeGenerator;
     }
 
@@ -53,19 +53,23 @@ class RequestHandler
     /**
      * @param \Modules\Annotation\Comment $comment
      *
-     * @throws \UnexpectedValueException
+     * @throws UnexpectedValueException
      * @return Response
      */
     public function create(Comment $comment)
     {
         $routeName       = ArrayUtils::getByPath($comment, 'unauthorized', $this->defaultRoute);
-        $routeParameters = ArrayUtils::getByPath($comment, 'unauthorizedParameters', $this->defaultParams);
+        $routeParameters = ArrayUtils::getByPath(
+            $comment,
+            'unauthorizedParameters',
+            $this->defaultParams
+        );
 
         $url = $this->routeGenerator->generate($routeName, $routeParameters);
 
         $mainRequest = $this->container->get('\\Miny\\HTTP\\Request');
-        if ($mainRequest->isSubRequest() && $url === $mainRequest->url) {
-            throw new \UnexpectedValueException('This redirection leads to an infinite loop.');
+        if ($mainRequest->isSubRequest() && $url === $mainRequest->getUrl()) {
+            throw new UnexpectedValueException('This redirection leads to an infinite loop.');
         }
 
         $request = $mainRequest->getSubRequest('GET', $url);

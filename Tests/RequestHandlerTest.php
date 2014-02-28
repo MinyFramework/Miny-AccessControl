@@ -26,7 +26,7 @@ class RequestHandlerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->routeMock = $this->getMockBuilder('Miny\Routing\Router')
+        $this->routeMock = $this->getMockBuilder('Miny\Router\Router')
             ->disableOriginalConstructor()
             ->setMethods(array('generate'))
             ->getMock();

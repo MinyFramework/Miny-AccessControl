@@ -9,6 +9,7 @@
 
 namespace Modules\AccessControl;
 
+use LogicException;
 use Miny\Application\Dispatcher;
 use Miny\Factory\Container;
 use Miny\HTTP\Response;
@@ -55,6 +56,7 @@ class RequestHandler
     /**
      * @param Comment $comment
      *
+     * @throws LogicException
      * @throws UnexpectedValueException
      * @return Response
      */
@@ -67,6 +69,9 @@ class RequestHandler
             $this->defaultParams
         );
 
+        if (!isset($routeName)) {
+            throw new LogicException('No redirection URL has been set.');
+        }
         $url = $this->routeGenerator->generate($routeName, $routeParameters);
 
         $mainRequest = $this->container->get('\\Miny\\HTTP\\Request');

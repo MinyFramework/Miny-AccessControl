@@ -13,7 +13,6 @@ use Miny\Application\Dispatcher;
 use Miny\Factory\Container;
 use Miny\HTTP\Response;
 use Miny\Router\RouteGenerator;
-use Miny\Router\Router;
 use Miny\Utils\ArrayUtils;
 use Modules\Annotation\Comment;
 use UnexpectedValueException;
@@ -37,8 +36,11 @@ class RequestHandler
     private $defaultRoute;
     private $defaultParams = array();
 
-    function __construct(Dispatcher $dispatcher, Container $factory, Router $routeGenerator)
-    {
+    public function __construct(
+        Dispatcher $dispatcher,
+        Container $factory,
+        RouteGenerator $routeGenerator
+    ) {
         $this->dispatcher     = $dispatcher;
         $this->container      = $factory;
         $this->routeGenerator = $routeGenerator;
@@ -51,7 +53,7 @@ class RequestHandler
     }
 
     /**
-     * @param \Modules\Annotation\Comment $comment
+     * @param Comment $comment
      *
      * @throws UnexpectedValueException
      * @return Response

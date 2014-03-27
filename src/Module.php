@@ -33,7 +33,7 @@ class Module extends \Miny\Modules\Module
         $container->addCallback(
             '\\Modules\\AccessControl\\RoleContainer',
             function (RoleContainer $roles) use ($module) {
-                $roles->addRoles($this->getConfiguration('roles'));
+                $roles->addRoles($module->getConfiguration('roles'));
             }
         );
 
@@ -42,7 +42,7 @@ class Module extends \Miny\Modules\Module
             function (RequestHandler $handler) use ($module) {
                 if ($module->hasConfiguration('redirect_route')) {
                     $path = $module->getConfiguration('redirect_route');
-                    if ($this->hasConfiguration('redirect_parameters')) {
+                    if ($module->hasConfiguration('redirect_parameters')) {
                         $params = $module->getConfiguration('redirect_parameters');
                     } else {
                         $params = array();

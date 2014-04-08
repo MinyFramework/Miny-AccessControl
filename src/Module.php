@@ -10,6 +10,7 @@
 namespace Modules\AccessControl;
 
 use Miny\Application\BaseApplication;
+use Miny\CoreEvents;
 
 class Module extends \Miny\Modules\Module
 {
@@ -21,7 +22,8 @@ class Module extends \Miny\Modules\Module
     public function defaultConfiguration()
     {
         return array(
-            'roles' => array()
+            'roles'               => array(),
+            'redirect_parameters' => array()
         );
     }
 
@@ -40,26 +42,27 @@ class Module extends \Miny\Modules\Module
         $container->addCallback(
             '\\Modules\\AccessControl\\RequestHandler',
             function (RequestHandler $handler) use ($module) {
-                if ($module->hasConfiguration('redirect_route')) {
-                    $path = $module->getConfiguration('redirect_route');
-                    if ($module->hasConfiguration('redirect_parameters')) {
-                        $params = $module->getConfiguration('redirect_parameters');
-                    } else {
-                        $params = array();
-                    }
-                    $handler->setDefaultRedirection($path, $params);
+                if (!$module->hasConfiguration('redirect_route')) {
+                    return;
                 }
+                $handler->setDefaultRedirection(
+                    $module->getConfiguration('redirect_route'),
+                    $module->getConfiguration('redirect_parameters')
+                );
             }
         );
     }
 
     public function eventHandlers()
     {
-        $container      = $this->application->getContainer();
-        $access_control = $container->get(__NAMESPACE__ . '\\AccessControl');
+        $container = $this->application->getContainer();
 
         return array(
-            'onControllerLoaded' => array($access_control),
+            CoreEvents::CONTROLLER_LOADED => array(
+                $container->get(
+                    __NAMESPACE__ . '\\AccessControl'
+                )
+            ),
         );
     }
 }

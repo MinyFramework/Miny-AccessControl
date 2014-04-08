@@ -13,11 +13,10 @@ class RoleContainerTest extends \PHPUnit_Framework_TestCase
     {
         $this->container = new RoleContainer();
         $this->container->add('StringRole');
-        $this->container->add(new Role('ObjectRole'));
         $this->container->addRoles(
             array(
+                'OtherStringRole',
                 'AnotherStringRole',
-                new Role('AnotherObjectRole')
             )
         );
     }
@@ -25,26 +24,14 @@ class RoleContainerTest extends \PHPUnit_Framework_TestCase
     public function testContainer()
     {
         $this->assertTrue($this->container->has('StringRole'));
-        $this->assertTrue($this->container->has('ObjectRole'));
+        $this->assertTrue($this->container->has('OtherStringRole'));
         $this->assertTrue($this->container->has('AnotherStringRole'));
-        $this->assertTrue($this->container->has('AnotherObjectRole'));
         $this->assertFalse($this->container->has('FooRole'));
     }
 
-
-
     public function testGetAll()
     {
-        $this->assertCount(4, $this->container->getAll());
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $role must be an instance of Role or a string.
-     */
-    public function testHasInvalidName()
-    {
-        $this->container->has(5);
+        $this->assertCount(3, $this->container->getAll());
     }
 
     public function testRemoveRole()

@@ -25,10 +25,7 @@ class RoleContainer
      */
     public function add($role)
     {
-        if (!$role instanceof Role) {
-            $role = new Role($role);
-        }
-        $this->roles[$role->getRole()] = $role;
+        $this->roles[$role] = true;
     }
 
     /**
@@ -42,28 +39,24 @@ class RoleContainer
     }
 
     /**
-     * @param string|Role $role
+     * @param string $role
      *
      * @return bool
      * @throws \InvalidArgumentException
      */
     public function has($role)
     {
-        $role = $this->findRole($role);
-
         return isset($this->roles[$role]);
     }
 
     /**
-     * @param string|Role $role
+     * @param string $role
      *
      * @return bool
      * @throws \InvalidArgumentException
      */
     public function remove($role)
     {
-        $role = $this->findRole($role);
-
         unset($this->roles[$role]);
     }
 
@@ -72,23 +65,6 @@ class RoleContainer
      */
     public function getAll()
     {
-        return $this->roles;
-    }
-
-    /**
-     * @param $role
-     *
-     * @return string
-     * @throws \InvalidArgumentException
-     */
-    private function findRole($role)
-    {
-        if ($role instanceof Role) {
-            $role = $role->getRole();
-        } elseif (!is_string($role)) {
-            throw new \InvalidArgumentException('$role must be an instance of Role or a string.');
-        }
-
-        return $role;
+        return array_keys($this->roles);
     }
 }

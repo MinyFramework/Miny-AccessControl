@@ -57,12 +57,8 @@ class RuleReader
         if (!isset($comment['role'])) {
             return array();
         }
-        $roles = $comment['role'];
-        if (!is_array($roles)) {
-            $roles = array($roles);
-        }
 
-        return $roles;
+        return (array) $comment['role'];
     }
 
     public function getLastComment()

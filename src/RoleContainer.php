@@ -49,11 +49,7 @@ class RoleContainer
      */
     public function has($role)
     {
-        if ($role instanceof Role) {
-            $role = $role->getRole();
-        } elseif (!is_string($role)) {
-            throw new \InvalidArgumentException('$role must be an instance of Role or a string.');
-        }
+        $role = $this->findRole($role);
 
         return isset($this->roles[$role]);
     }
@@ -66,11 +62,7 @@ class RoleContainer
      */
     public function remove($role)
     {
-        if ($role instanceof Role) {
-            $role = $role->getRole();
-        } elseif (!is_string($role)) {
-            throw new \InvalidArgumentException('$role must be an instance of Role or a string.');
-        }
+        $role = $this->findRole($role);
 
         unset($this->roles[$role]);
     }
@@ -83,5 +75,20 @@ class RoleContainer
         return $this->roles;
     }
 
+    /**
+     * @param $role
+     *
+     * @return string
+     * @throws \InvalidArgumentException
+     */
+    private function findRole($role)
+    {
+        if ($role instanceof Role) {
+            $role = $role->getRole();
+        } elseif (!is_string($role)) {
+            throw new \InvalidArgumentException('$role must be an instance of Role or a string.');
+        }
 
+        return $role;
+    }
 }

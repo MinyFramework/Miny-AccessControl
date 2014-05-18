@@ -53,7 +53,7 @@ class RuleReaderTest extends \PHPUnit_Framework_TestCase
     {
         $comment = new Comment('description');
 
-        $baseControllerStub = $this->getMockBuilder('Miny\Controller\BaseController')
+        $baseControllerStub = $this->getMockBuilder('Miny\Controller\Controller')
             ->setMethods(array('fooAction'))
             ->disableOriginalConstructor()
             ->getMock();

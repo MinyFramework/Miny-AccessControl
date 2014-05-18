@@ -20,6 +20,7 @@ class RequestHandlerTest extends \PHPUnit_Framework_TestCase
     {
         $this->factoryMock = $this->getMockBuilder('Miny\Factory\Container')
             ->setMethods(array('get'))
+            ->disableOriginalConstructor()
             ->getMock();
 
         $this->dispatcherMock = $this->getMockBuilder('Miny\Application\Dispatcher')

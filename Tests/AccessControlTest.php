@@ -25,7 +25,7 @@ class AccessControlTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->controllerStub = $baseControllerStub = $this->getMockBuilder('Miny\Controller\BaseController')
+        $this->controllerStub = $baseControllerStub = $this->getMockBuilder('Miny\Controller\Controller')
             ->setMethods(array('fooAction'))
             ->disableOriginalConstructor()
             ->getMock();

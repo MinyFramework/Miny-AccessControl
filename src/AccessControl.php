@@ -9,7 +9,7 @@
 
 namespace Modules\AccessControl;
 
-use Miny\Controller\BaseController;
+use Miny\Controller\Controller;
 
 class AccessControl
 {
@@ -62,7 +62,7 @@ class AccessControl
         }
 
         // check action
-        if ($controller instanceof BaseController) {
+        if ($controller instanceof Controller) {
             $roles = $this->reader->readAction($controller, $action);
             if (!$this->checkAuthorized($roles)) {
                 return false;

@@ -9,7 +9,7 @@
 
 namespace Modules\AccessControl;
 
-use Miny\Controller\BaseController;
+use Miny\Controller\Controller;
 use Modules\Annotation\Annotation;
 use Modules\Annotation\Comment;
 
@@ -44,7 +44,7 @@ class RuleReader
         return $this->extract($comment);
     }
 
-    public function readAction(BaseController $controller, $action)
+    public function readAction(Controller $controller, $action)
     {
         $comment = $this->annotation->readMethod($controller, $action . 'Action');
 

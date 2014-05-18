@@ -11,7 +11,7 @@ namespace Modules\AccessControl;
 class RoleContainer
 {
     /**
-     * @var Role[]
+     * @var string[]
      */
     private $roles;
 
@@ -21,7 +21,7 @@ class RoleContainer
     }
 
     /**
-     * @param string|Role $role
+     * @param string $role
      */
     public function add($role)
     {
@@ -61,7 +61,7 @@ class RoleContainer
     }
 
     /**
-     * @return Role[]
+     * @return string[]
      */
     public function getAll()
     {

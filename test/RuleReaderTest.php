@@ -2,7 +2,7 @@
 
 namespace Modules\AccessControl;
 
-use Modules\Annotation\Annotation;
+use Modules\Annotation\AnnotationReader;
 use Modules\Annotation\Comment;
 
 class RuleReaderTest extends \PHPUnit_Framework_TestCase
@@ -13,13 +13,13 @@ class RuleReaderTest extends \PHPUnit_Framework_TestCase
     private $reader;
 
     /**
-     * @var Annotation
+     * @var AnnotationReader
      */
     private $annotationMock;
 
     public function setUp()
     {
-        $this->annotationMock = $this->getMockBuilder('Modules\Annotation\Annotation')
+        $this->annotationMock = $this->getMockBuilder('Modules\Annotation\AnnotationReader')
             ->setMethods(array('readClass', 'readFunction', 'readMethod'))
             ->disableOriginalConstructor()
             ->getMock();

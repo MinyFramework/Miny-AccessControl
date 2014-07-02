@@ -10,7 +10,7 @@
 namespace Modules\AccessControl;
 
 use Miny\Controller\Controller;
-use Modules\Annotation\Annotation;
+use Modules\Annotation\AnnotationReader;
 use Modules\Annotation\Comment;
 
 class RuleReader
@@ -21,14 +21,14 @@ class RuleReader
     private $lastComment;
 
     /**
-     * @var Annotation
+     * @var AnnotationReader
      */
     private $annotation;
 
     /**
-     * @param Annotation $annotation
+     * @param AnnotationReader $annotation
      */
-    public function __construct(Annotation $annotation)
+    public function __construct(AnnotationReader $annotation)
     {
         $this->annotation = $annotation;
     }

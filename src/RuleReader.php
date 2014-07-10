@@ -10,8 +10,8 @@
 namespace Modules\AccessControl;
 
 use Miny\Controller\Controller;
-use Modules\Annotation\AnnotationReader;
 use Modules\Annotation\Comment;
+use Modules\Annotation\Reader;
 
 class RuleReader
 {
@@ -21,14 +21,14 @@ class RuleReader
     private $lastComment;
 
     /**
-     * @var AnnotationReader
+     * @var Reader
      */
     private $annotation;
 
     /**
-     * @param AnnotationReader $annotation
+     * @param Reader $annotation
      */
-    public function __construct(AnnotationReader $annotation)
+    public function __construct(Reader $annotation)
     {
         $this->annotation = $annotation;
     }
@@ -58,7 +58,7 @@ class RuleReader
             return array();
         }
 
-        return (array) $comment['role'];
+        return (array)$comment['role'];
     }
 
     public function getLastComment()

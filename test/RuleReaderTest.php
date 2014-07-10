@@ -29,7 +29,9 @@ class RuleReaderTest extends \PHPUnit_Framework_TestCase
 
     public function testLastCommentShouldBeIdenticalToTheReadComment()
     {
-        $comment = new Comment('description', array('role' => 'foo'));
+        $comment = new Comment('description');
+        $comment->add('role', 'foo');
+
         $this->annotationMock
             ->expects($this->once())
             ->method('readFunction')
@@ -99,7 +101,9 @@ class RuleReaderTest extends \PHPUnit_Framework_TestCase
 
     public function testSingleRoleShouldBeConvertedToArray()
     {
-        $comment = new Comment('description', array('role' => 'foo'));
+        $comment = new Comment('description');
+        $comment->add('role', 'foo');
+
         $this->annotationMock
             ->expects($this->once())
             ->method('readFunction')

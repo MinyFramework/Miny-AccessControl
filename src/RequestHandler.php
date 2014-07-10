@@ -62,8 +62,8 @@ class RequestHandler
      */
     public function create(Comment $comment)
     {
-        $routeName       = ArrayUtils::getByPath($comment, 'unauthorized', $this->defaultRoute);
-        $routeParameters = ArrayUtils::getByPath(
+        $routeName       = ArrayUtils::get($comment, 'unauthorized', $this->defaultRoute);
+        $routeParameters = ArrayUtils::get(
             $comment,
             'unauthorizedParameters',
             $this->defaultParams

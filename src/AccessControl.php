@@ -10,6 +10,7 @@
 namespace Modules\AccessControl;
 
 use Miny\Controller\Controller;
+use Miny\Controller\Events\ControllerLoadedEvent;
 
 class AccessControl
 {
@@ -39,9 +40,9 @@ class AccessControl
         $this->user = $user;
     }
 
-    public function onControllerLoaded($controller, $action)
+    public function onControllerLoaded(ControllerLoadedEvent $event)
     {
-        if (!$this->isAuthorized($controller, $action)) {
+        if (!$this->isAuthorized($event->getController(), $event->getAction())) {
             // unauthorized
             return $this->requestHandler->create($this->reader->getLastComment());
         }

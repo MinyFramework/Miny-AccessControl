@@ -83,12 +83,11 @@ class RequestHandlerTest extends \PHPUnit_Framework_TestCase
             ->method('dispatch')
             ->will($this->returnValue(new Response()));
 
-        $this->handler->create(
-            new Comment('description', array(
-                'unauthorized'           => 'fooPath',
-                'unauthorizedParameters' => array('fooParam')
-            ))
-        );
+        $comment = new Comment('description');
+        $comment->add('unauthorized', 'fooPath');
+        $comment->add('unauthorizedParameters', array('fooParam'));
+
+        $this->handler->create($comment);
     }
 
     /**
@@ -111,11 +110,10 @@ class RequestHandlerTest extends \PHPUnit_Framework_TestCase
             ->method('generate')
             ->will($this->returnArgument(0));
 
-        $this->handler->create(
-            new Comment('description', array(
-                'unauthorized' => 'fooPath'
-            ))
-        );
+        $comment = new Comment('description');
+        $comment->add('unauthorized', 'fooPath');
+
+        $this->handler->create($comment);
     }
 
 }

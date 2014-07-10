@@ -2,6 +2,7 @@
 
 namespace Modules\AccessControl;
 
+use Miny\Controller\Events\ControllerLoadedEvent;
 use Modules\Annotation\Comment;
 
 class AccessControlTest extends \PHPUnit_Framework_TestCase
@@ -25,7 +26,9 @@ class AccessControlTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->controllerStub = $baseControllerStub = $this->getMockBuilder('Miny\Controller\Controller')
+        $this->controllerStub = $baseControllerStub = $this->getMockBuilder(
+            'Miny\Controller\Controller'
+        )
             ->setMethods(array('fooAction'))
             ->disableOriginalConstructor()
             ->getMock();
@@ -71,7 +74,9 @@ class AccessControlTest extends \PHPUnit_Framework_TestCase
             ->expects($this->never())
             ->method('create');
 
-        $this->accessControl->onControllerLoaded($this->controllerStub, 'foo');
+        $this->accessControl->onControllerLoaded(
+            new ControllerLoadedEvent($this->controllerStub, 'foo')
+        );
     }
 
     public function testThatNoRedirectionIsDoneIfAuthorized()
@@ -92,7 +97,9 @@ class AccessControlTest extends \PHPUnit_Framework_TestCase
             ->expects($this->never())
             ->method('create');
 
-        $this->accessControl->onControllerLoaded($this->controllerStub, 'foo');
+        $this->accessControl->onControllerLoaded(
+            new ControllerLoadedEvent($this->controllerStub, 'foo')
+        );
     }
 
     public function testThatRedirectionIsMadeOnControllerAuthorizationFailure()
@@ -116,7 +123,9 @@ class AccessControlTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('create');
 
-        $this->accessControl->onControllerLoaded($this->controllerStub, 'foo');
+        $this->accessControl->onControllerLoaded(
+            new ControllerLoadedEvent($this->controllerStub, 'foo')
+        );
     }
 
     public function testThatRedirectionIsMadeOnActionAuthorizationFailure()
@@ -142,6 +151,8 @@ class AccessControlTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('create');
 
-        $this->accessControl->onControllerLoaded($this->controllerStub, 'foo');
+        $this->accessControl->onControllerLoaded(
+            new ControllerLoadedEvent($this->controllerStub, 'foo')
+        );
     }
 }

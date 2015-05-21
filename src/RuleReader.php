@@ -55,7 +55,7 @@ class RuleReader
     {
         $this->lastComment = $comment;
         if (!isset($comment['role'])) {
-            return array();
+            return [];
         }
 
         return (array)$comment['role'];

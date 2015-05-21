@@ -19,7 +19,7 @@ class RequestHandlerTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->factoryMock = $this->getMockBuilder('Miny\Factory\Container')
-            ->setMethods(array('get'))
+            ->setMethods(['get'])
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -29,11 +29,11 @@ class RequestHandlerTest extends \PHPUnit_Framework_TestCase
 
         $this->routeMock = $this->getMockBuilder('Miny\Router\RouteGenerator')
             ->disableOriginalConstructor()
-            ->setMethods(array('generate'))
+            ->setMethods(['generate'])
             ->getMock();
 
         $this->handler = new RequestHandler($this->dispatcherMock, $this->factoryMock, $this->routeMock);
-        $this->handler->setDefaultRedirection('path', array('param1', 'param2'));
+        $this->handler->setDefaultRedirection('path', ['param1', 'param2']);
     }
 
     public function testThatAnUnauthorizedHeaderIsSet()
@@ -49,7 +49,7 @@ class RequestHandlerTest extends \PHPUnit_Framework_TestCase
         $this->routeMock
             ->expects($this->once())
             ->method('generate')
-            ->with('path', array('param1', 'param2'))
+            ->with('path', ['param1', 'param2'])
             ->will($this->returnArgument(0));
 
         $this->dispatcherMock
@@ -75,7 +75,7 @@ class RequestHandlerTest extends \PHPUnit_Framework_TestCase
         $this->routeMock
             ->expects($this->once())
             ->method('generate')
-            ->with('fooPath', array('fooParam'))
+            ->with('fooPath', ['fooParam'])
             ->will($this->returnArgument(0));
 
         $this->dispatcherMock
@@ -85,7 +85,7 @@ class RequestHandlerTest extends \PHPUnit_Framework_TestCase
 
         $comment = new Comment('description');
         $comment->add('unauthorized', 'fooPath');
-        $comment->add('unauthorizedParameters', array('fooParam'));
+        $comment->add('unauthorizedParameters', ['fooParam']);
 
         $this->handler->create($comment);
     }

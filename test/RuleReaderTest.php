@@ -20,7 +20,7 @@ class RuleReaderTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->annotationMock = $this->getMockBuilder('Modules\Annotation\AnnotationReader')
-            ->setMethods(array('readClass', 'readFunction', 'readMethod'))
+            ->setMethods(['readClass', 'readFunction', 'readMethod'])
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -56,7 +56,7 @@ class RuleReaderTest extends \PHPUnit_Framework_TestCase
         $comment = new Comment('description');
 
         $baseControllerStub = $this->getMockBuilder('Miny\Controller\Controller')
-            ->setMethods(array('fooAction'))
+            ->setMethods(['fooAction'])
             ->disableOriginalConstructor()
             ->getMock();
 

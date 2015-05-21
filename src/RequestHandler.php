@@ -35,7 +35,7 @@ class RequestHandler implements RequestHandlerInterface
      */
     private $dispatcher;
     private $defaultRoute;
-    private $defaultParams = array();
+    private $defaultParams = [];
 
     public function __construct(
         Dispatcher $dispatcher,
@@ -47,7 +47,7 @@ class RequestHandler implements RequestHandlerInterface
         $this->routeGenerator = $routeGenerator;
     }
 
-    public function setDefaultRedirection($path, array $params = array())
+    public function setDefaultRedirection($path, array $params = [])
     {
         $this->defaultRoute  = $path;
         $this->defaultParams = $params;

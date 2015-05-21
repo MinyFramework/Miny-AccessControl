@@ -14,10 +14,10 @@ class RoleContainerTest extends \PHPUnit_Framework_TestCase
         $this->container = new RoleContainer();
         $this->container->add('StringRole');
         $this->container->addRoles(
-            array(
+            [
                 'OtherStringRole',
                 'AnotherStringRole',
-            )
+            ]
         );
     }
 

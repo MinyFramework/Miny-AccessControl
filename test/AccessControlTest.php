@@ -29,12 +29,12 @@ class AccessControlTest extends \PHPUnit_Framework_TestCase
         $this->controllerStub = $baseControllerStub = $this->getMockBuilder(
             'Miny\Controller\Controller'
         )
-            ->setMethods(array('fooAction'))
+            ->setMethods(['fooAction'])
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->readerMock = $this->getMockBuilder('\Modules\AccessControl\RuleReader')
-            ->setMethods(array('getLastComment', 'readController', 'readAction'))
+            ->setMethods(['getLastComment', 'readController', 'readAction'])
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -43,7 +43,7 @@ class AccessControlTest extends \PHPUnit_Framework_TestCase
 
         $this->requestHandlerMock = $this->getMockBuilder('\Modules\AccessControl\RequestHandler')
             ->disableOriginalConstructor()
-            ->setMethods(array('create'))
+            ->setMethods(['create'])
             ->getMock();
 
         $container = new RoleContainer();
@@ -62,13 +62,13 @@ class AccessControlTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('readController')
             ->with($this->controllerStub)
-            ->will($this->returnValue(array()));
+            ->will($this->returnValue([]));
 
         $this->readerMock
             ->expects($this->once())
             ->method('readAction')
             ->with($this->controllerStub, 'foo')
-            ->will($this->returnValue(array()));
+            ->will($this->returnValue([]));
 
         $this->requestHandlerMock
             ->expects($this->never())
@@ -85,13 +85,13 @@ class AccessControlTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('readController')
             ->with($this->controllerStub)
-            ->will($this->returnValue(array('role_user')));
+            ->will($this->returnValue(['role_user']));
 
         $this->readerMock
             ->expects($this->once())
             ->method('readAction')
             ->with($this->controllerStub, 'foo')
-            ->will($this->returnValue(array('role_user')));
+            ->will($this->returnValue(['role_user']));
 
         $this->requestHandlerMock
             ->expects($this->never())
@@ -108,7 +108,7 @@ class AccessControlTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('readController')
             ->with($this->controllerStub)
-            ->will($this->returnValue(array('role_foo')));
+            ->will($this->returnValue(['role_foo']));
 
         $this->readerMock
             ->expects($this->once())
@@ -134,7 +134,7 @@ class AccessControlTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('readController')
             ->with($this->controllerStub)
-            ->will($this->returnValue(array('role_user')));
+            ->will($this->returnValue(['role_user']));
 
         $this->readerMock
             ->expects($this->once())
@@ -145,7 +145,7 @@ class AccessControlTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('readAction')
             ->with($this->controllerStub, 'foo')
-            ->will($this->returnValue(array('role_foo')));
+            ->will($this->returnValue(['role_foo']));
 
         $this->requestHandlerMock
             ->expects($this->once())

@@ -16,16 +16,16 @@ class Module extends \Miny\Modules\Module
 {
     public function getDependencies()
     {
-        return array('Annotation');
+        return ['Annotation'];
     }
 
     public function defaultConfiguration()
     {
-        return array(
+        return [
             'authorizationHandler' => '\\Modules\\AccessControl\\RequestHandler',
-            'roles' => array(),
-            'redirect_parameters' => array()
-        );
+            'roles' => [],
+            'redirect_parameters' => []
+        ];
     }
 
     public function init(BaseApplication $app)
@@ -63,12 +63,12 @@ class Module extends \Miny\Modules\Module
     {
         $container = $this->application->getContainer();
 
-        return array(
-            CoreEvents::CONTROLLER_LOADED => array(
+        return [
+            CoreEvents::CONTROLLER_LOADED => [
                 $container->get(
                     __NAMESPACE__ . '\\AccessControl'
                 )
-            ),
-        );
+            ],
+        ];
     }
 }

@@ -29,7 +29,7 @@ class AccessControl
      */
     private $reader;
 
-    public function __construct(RuleReader $reader, RequestHandler $requestHandler)
+    public function __construct(RuleReader $reader, RequestHandlerInterface $requestHandler)
     {
         $this->reader         = $reader;
         $this->requestHandler = $requestHandler;
@@ -78,7 +78,7 @@ class AccessControl
         if (empty($roles)) {
             return true;
         }
-        if(!isset($this->user)) {
+        if (!isset($this->user)) {
             return false;
         }
         $container = $this->user->getRoleContainer();

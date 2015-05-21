@@ -22,7 +22,8 @@ class Module extends \Miny\Modules\Module
     public function defaultConfiguration()
     {
         return array(
-            'roles'               => array(),
+            'authorizationHandler' => '\\Modules\\AccessControl\\RequestHandler',
+            'roles' => array(),
             'redirect_parameters' => array()
         );
     }
@@ -30,6 +31,11 @@ class Module extends \Miny\Modules\Module
     public function init(BaseApplication $app)
     {
         $container = $app->getContainer();
+
+        $container->addAlias(
+            '\\Modules\\AccessControl\\RequestHandlerInterface',
+            $this->getConfiguration('authorizationHandler')
+        );
 
         $module = $this;
         $container->addCallback(

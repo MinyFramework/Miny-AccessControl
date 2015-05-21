@@ -18,7 +18,7 @@ use Miny\Utils\ArrayUtils;
 use Modules\Annotation\Comment;
 use UnexpectedValueException;
 
-class RequestHandler
+class RequestHandler implements RequestHandlerInterface
 {
     /**
      * @var Container

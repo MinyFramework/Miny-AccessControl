@@ -9,9 +9,9 @@
 
 namespace Modules\AccessControl;
 
+use Annotiny\Comment;
+use Annotiny\Reader;
 use Miny\Controller\Controller;
-use Modules\Annotation\Comment;
-use Modules\Annotation\Reader;
 
 class RuleReader
 {

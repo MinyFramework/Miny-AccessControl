@@ -9,8 +9,8 @@
 
 namespace Modules\AccessControl;
 
+use Annotiny\Comment;
 use Miny\HTTP\Response;
-use Modules\Annotation\Comment;
 
 interface RequestHandlerInterface
 {

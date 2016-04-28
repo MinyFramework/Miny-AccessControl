@@ -2,9 +2,9 @@
 
 namespace Modules\AccessControl;
 
+use Annotiny\Comment;
 use Miny\HTTP\Request;
 use Miny\HTTP\Response;
-use Modules\Annotation\Comment;
 
 class RequestHandlerTest extends \PHPUnit_Framework_TestCase
 {

@@ -2,8 +2,8 @@
 
 namespace Modules\AccessControl;
 
-use Modules\Annotation\AnnotationReader;
-use Modules\Annotation\Comment;
+use Annotiny\AnnotationReader;
+use Annotiny\Comment;
 
 class RuleReaderTest extends \PHPUnit_Framework_TestCase
 {

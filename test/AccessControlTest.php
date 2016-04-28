@@ -2,8 +2,8 @@
 
 namespace Modules\AccessControl;
 
+use Annotiny\Comment;
 use Miny\Controller\Events\ControllerLoadedEvent;
-use Modules\Annotation\Comment;
 
 class AccessControlTest extends \PHPUnit_Framework_TestCase
 {

@@ -19,7 +19,7 @@ class RuleReaderTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->annotationMock = $this->getMockBuilder('Modules\Annotation\AnnotationReader')
+        $this->annotationMock = $this->getMockBuilder('Annotiny\AnnotationReader')
             ->setMethods(['readClass', 'readFunction', 'readMethod'])
             ->disableOriginalConstructor()
             ->getMock();
